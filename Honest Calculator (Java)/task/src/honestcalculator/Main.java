@@ -65,10 +65,32 @@ public class Main {
             System.out.printf("%.1f\n", result);
 
             while (true) {
-                System.out.println("Do you want to store the result? (y / n):");
+                System.out.println("Do you want to store the result? (y / n):"); // msg_4
                 String isResultStored = sc.nextLine().trim();
                 if (isResultStored.equals("y")) {
-                    memory = result;
+                    if (is_one_digit(result)) {
+                        int msg_index = 10;
+                        while (true) {
+                            System.out.println(msg_index == 10 ?
+                                    "Are you sure? It is only one digit! (y / n)" : // msg_10
+                                    msg_index == 11 ?
+                                            "Don't be silly! It's just one number! Add to the memory? (y / n)" : // msg_11
+                                            "Last chance! Do you really want to embarrass yourself? (y / n)"); // msg_12
+                            isResultStored = sc.nextLine().trim();
+                            if (isResultStored.equals("y")) {
+                                if (msg_index < 12) {
+                                    msg_index++;
+                                } else {
+                                    memory = result;
+                                    break;
+                                }
+                            } else if (isResultStored.equals("n")) {
+                                break;
+                            }
+                        }
+                    } else {
+                        memory = result;
+                    }
                     break;
                 } else if (isResultStored.equals("n")) {
                     break;
@@ -76,7 +98,7 @@ public class Main {
             }
 
             while (true) {
-                System.out.println("Do you want to continue calculations? (y / n):");
+                System.out.println("Do you want to continue calculations? (y / n):"); // msg_5
                 String continueCalculations = sc.nextLine().trim();
                 if (continueCalculations.equals("y")) {
                     break;
