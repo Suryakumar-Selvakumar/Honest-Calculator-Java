@@ -47,6 +47,8 @@ public class Main {
                 continue;
             }
 
+            check(x, y, operator);
+
             if (operator.equals("/") && y == 0) {
                 System.out.println("Yeah... division by zero. Smart move...");
                 continue;
@@ -60,7 +62,7 @@ public class Main {
                 default -> 0;
             };
 
-            System.out.println(result);
+            System.out.printf("%.1f\n", result);
 
             while (true) {
                 System.out.println("Do you want to store the result? (y / n):");
@@ -84,5 +86,30 @@ public class Main {
                 }
             }
         }
+    }
+
+    static void check(float v1, float v2, String v3) {
+        StringBuilder msg = new StringBuilder();
+
+        if (is_one_digit(v1) && is_one_digit(v2)) {
+            msg.append(" ... lazy"); // msg_6
+        }
+
+        if ((v1 == 1 || v2 == 1) && v3.equals("*")) {
+            msg.append(" ... very lazy"); // msg_7
+        }
+
+        if ((v1 == 0 || v2 == 0) && (v3.equals("*") || v3.equals("+") || v3.equals("-"))) {
+            msg.append(" ... very, very lazy"); // msg_8
+        }
+
+        if (!msg.isEmpty()) {
+            msg.insert(0, "You are");
+            System.out.println(msg);
+        }
+    }
+
+    static boolean is_one_digit(float v) {
+        return v > -10 && v < 10 && String.valueOf(v).matches("\\d+\\.0");
     }
 }
