@@ -6,13 +6,32 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
         Scanner sc = new Scanner(System.in);
-        String numRegex = "(\\d+.\\d+|\\d+)";
+        String numRegex = "[+-]?\\d+(.\\d+)?";
 
-        while (true) {
+        float memory = 0;
+
+        boolean isProgramOn = true;
+        while (isProgramOn) {
             System.out.println("Enter an equation");
             String[] equation = sc.nextLine().trim().split(" ");
-            boolean isXValid = equation[0].matches(numRegex);
-            boolean isYValid = equation[2].matches(numRegex);
+            String strX = equation[0];
+            String strY = equation[2];
+            float x, y;
+
+            if (strX.equals("M")) {
+                x = memory;
+            } else {
+                x = Float.parseFloat(strX);
+            }
+
+            if (strY.equals("M")) {
+                y = memory;
+            } else {
+                y = Float.parseFloat(strY);
+            }
+
+            boolean isXValid = String.valueOf(x).matches(numRegex);
+            boolean isYValid = String.valueOf(y).matches(numRegex);
 
             if (!isXValid || !isYValid) {
                 System.out.println("Do you even know what numbers are? Stay focused!");
@@ -28,10 +47,6 @@ public class Main {
                 continue;
             }
 
-
-            float x = Float.parseFloat(equation[0]);
-            float y = Float.parseFloat(equation[2]);
-
             if (operator.equals("/") && y == 0) {
                 System.out.println("Yeah... division by zero. Smart move...");
                 continue;
@@ -46,7 +61,28 @@ public class Main {
             };
 
             System.out.println(result);
-            break;
+
+            while (true) {
+                System.out.println("Do you want to store the result? (y / n):");
+                String isResultStored = sc.nextLine().trim();
+                if (isResultStored.equals("y")) {
+                    memory = result;
+                    break;
+                } else if (isResultStored.equals("n")) {
+                    break;
+                }
+            }
+
+            while (true) {
+                System.out.println("Do you want to continue calculations? (y / n):");
+                String continueCalculations = sc.nextLine().trim();
+                if (continueCalculations.equals("y")) {
+                    break;
+                } else if (continueCalculations.equals("n")) {
+                    isProgramOn = false;
+                    break;
+                }
+            }
         }
     }
 }
