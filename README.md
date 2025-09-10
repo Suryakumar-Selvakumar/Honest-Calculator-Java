@@ -29,7 +29,8 @@ stage adding new logic and features:
 
 ## Demo
 
-<video width="1920" height="1080" align="center" src=""></video>
+<video width="1920" height="1080" align="center" src="https://github.com/user-attachments/assets/a8a0d3de-1df4-4f81-ae67-0d7b02c23d18"></video>
+
 
 ## Takeaway
 
